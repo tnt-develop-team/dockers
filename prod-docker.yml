@@ -1,0 +1,15 @@
+version: "2.0"
+services:
+  deploy_jenkins:
+    container_name: deploy_jenkins
+    image: jenkins
+    ports:
+      - "8443:8443"
+    volumes:
+      - ~/jenkins_home:/var/jenkins_home
+    environment:
+      - JENKINS_OPTS="--httpPort=-1 --httpsPort=8443 --httpsKeyStore=/var/jenkins_home/jenkins_keystore.jks --httpsKeyStorePassword=****"
+
+
+#keytool -genkey -keyalg RSA -alias selfsigned -keystore jenkins_keystore.jks -storepass mypassword -keysize 4096
+#docker run -v /home/ubuntu:/var/jenkins_home -p 443:8443 jenkins --httpPort=-1 --httpsPort=8443 --httpsKeyStore=/var/jenkins_home/jenkins_keystore.jks --httpsKeyStorePassword=mypassword
